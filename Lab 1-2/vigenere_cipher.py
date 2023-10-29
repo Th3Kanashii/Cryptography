@@ -1,6 +1,7 @@
-def vigenere_cipher(message: str,
-                    key: str,
-                    decrypt: bool = False) -> str:
+#!/usr/bin/env python
+def encrypt_or_decrypt(message: str,
+                       key: str,
+                       decrypt: bool = False) -> str:
     """
     Encrypts or decrypts the message using the Vigenere cipher with the given key.
 
@@ -39,8 +40,11 @@ def vigenere_cipher(message: str,
 
 if __name__ == "__main__":
     _message, _key = "Наступаємо на світанку", "Віженер"
-    _encrypt = vigenere_cipher(message=_message, key=_key)
-    _decrypt = vigenere_cipher(message=_encrypt, key=_key, decrypt=True)
+    _encrypt = encrypt_or_decrypt(message=_message,
+                                  key=_key)
+    _decrypt = encrypt_or_decrypt(message=_encrypt,
+                                  key=_key,
+                                  decrypt=True)
     print(f"Initial message: {_message}, key: {_key}\n"
           f"Encrypted message: {_encrypt}\n"
           f"Decrypted message: {_decrypt}")
