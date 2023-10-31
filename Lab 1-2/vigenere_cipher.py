@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 def encrypt_or_decrypt(message: str,
                        key: str,
                        decrypt: bool = False) -> str:
