@@ -15,6 +15,7 @@ def inverse_element(a: int,
     """
     gcd, x, y = gcdex(a=a, b=n)
 
+    # Check for mutual simplicity
     if gcd != 1:
         # Inverse doesnt exist if gcd(a, n) is not 1
         return None
