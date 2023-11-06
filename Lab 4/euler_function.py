@@ -24,4 +24,4 @@ def phi(m: int) -> int:
 
 if __name__ == "__main__":
     n = 12
-    print(f"Euler's function for {n} = {phi(m=n)}")
+    print(f"Euler function for {n} = {phi(m=n)}")
