@@ -1,6 +1,9 @@
 #!/usr/bin/python3
+from typing import Tuple
+
+
 def gcdex(a: int,
-          b: int) -> tuple:
+          b: int) -> Tuple[int, int, int]:
     """
     Calculate the greatest common divisor (GCD) of two integers a and b using the extended Euclidean algorithm.
 
