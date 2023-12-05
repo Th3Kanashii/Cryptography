@@ -2,8 +2,7 @@
 from typing import Tuple
 
 
-def gcdex(a: int,
-          b: int) -> Tuple[int, int, int]:
+def gcdex(a: int, b: int) -> Tuple[int, int, int]:
     """
     Calculate the greatest common divisor (GCD) of two integers a and b using the extended Euclidean algorithm.
 
@@ -22,6 +21,4 @@ def gcdex(a: int,
 if __name__ == "__main__":
     _a, _b = 612, 342
     d, x, y = gcdex(a=_a, b=_b)
-    print(f"НСД({_a}, {_b}) = {d}\n"
-          f"x = {x}, y = {y}\n"
-          f"{_a}*{x} + {_b}*{y} = {d}")
+    print(f"НСД({_a}, {_b}) = {d}\n" f"x = {x}, y = {y}\n" f"{_a}*{x} + {_b}*{y} = {d}")
