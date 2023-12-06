@@ -36,12 +36,17 @@ def encrypt_or_decrypt(message: str, key: str, decrypt: bool = False) -> str:
     return "".join(result)
 
 
-if __name__ == "__main__":
-    _message, _key = "Наступаємо на світанку", "Віженер"
-    _encrypt = encrypt_or_decrypt(message=_message, key=_key)
-    _decrypt = encrypt_or_decrypt(message=_encrypt, key=_key, decrypt=True)
+def main():
+    message, key = "Наступаємо на світанку", "Віженер"
+    encrypt = encrypt_or_decrypt(message=message, key=key)
+    decrypt = encrypt_or_decrypt(message=encrypt, key=key, decrypt=True)
+
     print(
-        f"Initial message: {_message}, key: {_key}\n"
-        f"Encrypted message: {_encrypt}\n"
-        f"Decrypted message: {_decrypt}"
+        f"Initial message: {message}, key: {key}\n"
+        f"Encrypted message: {encrypt}\n"
+        f"Decrypted message: {decrypt}"
     )
+
+
+if __name__ == "__main__":
+    main()

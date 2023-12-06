@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 class ColumnRowTranspositionCipher:
-    def __init__(self, column_key, row_key) -> None:
+    def __init__(self, column_key: str, row_key: str) -> None:
         """
         Initializes a new ColumnRowTranspositionCipher.
 
@@ -109,16 +109,23 @@ class ColumnRowTranspositionCipher:
         return decrypted_message
 
 
-if __name__ == "__main__":
-    _column_key, _row_key = "крипто", "шифр"
-    _message = "Програмне забезпечення"
+def main() -> None:
+    column_key, row_key = "крипто", "шифр"
+    message = "Програмне забезпечення"
+
     column_row_transposition_cipher = ColumnRowTranspositionCipher(
-        column_key=_column_key, row_key=_row_key
+        column_key=column_key, row_key=row_key
     )
-    encrypt = column_row_transposition_cipher.encrypt(_message)
+
+    encrypt = column_row_transposition_cipher.encrypt(message)
     decrypt = column_row_transposition_cipher.decrypt(encrypt)
+
     print(
-        f"Initial message: {_message}, keys: ({_column_key, _row_key})\n"
+        f"Initial message: {message}, keys: ({column_key}, {row_key})\n"
         f"Encrypted message: {encrypt}\n"
         f"Decrypted message: {decrypt}"
     )
+
+
+if __name__ == "__main__":
+    main()

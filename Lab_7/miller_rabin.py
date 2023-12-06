@@ -4,7 +4,7 @@ import random
 
 def is_prime(num, k=5) -> bool:
     """
-    Check if a given number is prime using the Miller-Rabin primality test.
+    Check if a given number is prime using the miller rabin primality test.
 
     :param num: The number to be checked for primality.
     :param k: The number of iterations or witnesses for the test.

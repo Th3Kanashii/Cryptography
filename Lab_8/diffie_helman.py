@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import random
 
+
 class DiffieHellman:
     def __init__(self, p_bits: int = 128) -> None:
         """
@@ -81,6 +82,7 @@ class DiffieHellman:
         public_key = pow(self.g, private_key, self.p)
         return public_key
 
+
 def main() -> None:
     alice = DiffieHellman()
     bob = DiffieHellman()
@@ -100,6 +102,7 @@ def main() -> None:
     print("Public key for Bob:", public_key_bob)
     print("Shared key for Alice:", shared_key_alice)
     print("Shared key for Bob:", shared_key_bob)
+
 
 if __name__ == "__main__":
     main()
