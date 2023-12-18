@@ -1,114 +1,95 @@
 #!/usr/bin/python3
 import math
 import random
+from typing import List, Tuple, Union
 
-from Lab_7.miller_rabin import is_prime
+from miller_rabin import is_prime
+from mod_inverse import ModInverse
 
 
-class RSA:
+class RSA(ModInverse):
+    """
+    This class provides methods for generating RSA key pairs, encrypting and decrypting messages using RSA.
+    """
+
     def __init__(self, bits: int = 512) -> None:
         """
         Initialize the RSA key generator.
 
         :param bits: The number of bits for the key.
         """
-        self.bits: int = bits
-        self.public_key: tuple[int, int] = None
-        self.private_key: tuple[int, int] = None
+        self.bits = bits
+        self.public_key, self.private_key = self.generate_keypair()
 
-    def generate_prime(self) -> int:
+    def _generate_prime(self) -> int:
         """
         Generate a random prime number with the specified number of bits.
 
         :return: A randomly generated prime number.
         """
         while True:
-            num: int = random.getrandbits(self.bits)
+            num = random.getrandbits(self.bits)
             if is_prime(num):
                 return num
 
-    def egcd(self, a: int, b: int) -> tuple[int, int, int]:
-        """
-        Extended euclidean algorithm.
-
-        :param a: First integer.
-        :param b: Second integer.
-        :return: A tuple (g, x, y).
-        """
-        if a == 0:
-            return (b, 0, 1)
-        else:
-            g, x, y = self.egcd(b % a, a)
-            return (g, y - (b // a) * x, x)
-
-    def modinv(self, a: int, m: int) -> int:
-        """
-        Calculate the modular multiplicative inverse of a modulo m.
-
-        :param a: The base integer.
-        :param m: The modulo.
-        :return: The modular multiplicative inverse of a modulo m.
-        """
-        g, x, y = self.egcd(a, m)
-        if g != 1:
-            raise Exception("Modular inverse does not exist")
-        else:
-            return x % m
-
-    def generate_keypair(self) -> None:
+    def _generate_keypair(self) -> Tuple[Tuple[int, int], Tuple[int, int]]:
         """
         Generate a pair of public and private keys.
-        """
-        p: int = self.generate_prime()
-        q: int = self.generate_prime()
-        n: int = p * q
-        phi: int = (p - 1) * (q - 1)
 
-        e: int = random.randint(2, phi - 1)
+        :return: A tuple containing public and private keys.
+        """
+        p = self.generate_prime()
+        q = self.generate_prime()
+
+        n = p * q
+        phi = (p - 1) * (q - 1)
+
+        # Choose public key e
+        e = random.randint(1, phi - 1)
         while math.gcd(e, phi) != 1:
-            e = random.randint(2, phi - 1)
+            e = random.randint(1, phi - 1)
 
-        d: int = self.modinv(e, phi)
+        # Find private key d
+        d: Union[int, None] = self.inverse_gcdex(e, phi)
 
-        self.public_key: tuple[int, int] = (n, e)
-        self.private_key: tuple[int, int] = (n, d)
+        return ((n, e), (n, d))
 
-    def encrypt(self, message: str) -> list[int]:
+    def encrypt(self, message: str) -> List[int]:
         """
-        Encrypt a string using the public key.
+        Encrypt a message using RSA.
 
-        :param message: The string to be encrypted.
-        :return: A list of integers representing the encrypted message.
+        :param message: The message to be encrypted.
+        :return: A list of encrypted integers representing the cipher text.
         """
         n, e = self.public_key
-        return [pow(ord(char), e, n) for char in message]
+        cipher_text: List[int] = [pow(ord(char), e, n) for char in message]
+        return cipher_text
 
-    def decrypt(self, ciphertext: list[int]) -> str:
+    def decrypt(self, cipher_text: List[int]) -> str:
         """
-        Decrypt a list of integers using the private key.
+        Decrypt a cipher text using RSA.
 
-        :param ciphertext: The list of integers to be decrypted.
-        :return: The decrypted string.
+        :param cipher_text: A list of encrypted integers.
+        :return: The decrypted plain text.
         """
         n, d = self.private_key
-        return "".join([chr(pow(char, d, n)) for char in ciphertext])
+        plain_text: List[str] = [chr(pow(char, d, n)) for char in cipher_text]
+        return "".join(plain_text)
 
 
 def main() -> None:
-    rsa = RSA()
-    rsa.generate_keypair()
+    rsa: RSA = RSA()
 
-    print("Public Key:", rsa.public_key)
-    print("Private Key:", rsa.private_key)
+    message = "Hello, RSA!"
 
-    original_message: str = "Hello, RSA!"
-    print(f"\nOriginal message: {original_message}")
+    cipher_text: List[int] = rsa.encrypt(message)
+    decrypted_message: str = rsa.decrypt(cipher_text)
 
-    encrypted_message: list[int] = rsa.encrypt(original_message)
-    print(f"Encrypted message: {encrypted_message}")
-
-    decrypted_message: str = rsa.decrypt(encrypted_message)
-    print(f"Decrypted message: {decrypted_message}")
+    return print(
+        f"Initial message: {message}\n"
+        f"Encrypted message: {cipher_text}\n"
+        f"Decrypted message: {decrypted_message}"
+    )
 
 
 if __name__ == "__main__":

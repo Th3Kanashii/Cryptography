@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-from typing import Optional
+from typing import Optional, Union
 
-from extended_euclidean_algorithm import gcdex
+from gcdex import gcdex
 
 
-def inverse_element(a: int, n: int) -> Optional[int]:
+def inverse_gcdex(a: int, n: int) -> Optional[int]:
     """
     Find the multiplicative inverse of a modulo n using the extended Euclidean algorithm.
 
@@ -12,7 +12,7 @@ def inverse_element(a: int, n: int) -> Optional[int]:
     :param n: The modulus.
     :return: The multiplicative inverse of a modulo n, or None if it does not exist.
     """
-    gcd, x, y = gcdex(a=a, b=n)
+    gcd, x, _ = gcdex(a=a, b=n)
 
     # Check for mutual simplicity
     if gcd != 1:
@@ -23,10 +23,15 @@ def inverse_element(a: int, n: int) -> Optional[int]:
     return (x % n + n) % n
 
 
+def main() -> None:
+    a, n = 5, 18
+    inverse: Union[int, None] = inverse_gcdex(a=a, n=n)
+
+    if inverse:
+        return print(f"The multiplicative inverse of {a} mod {n} is {inverse}.")
+
+    return print(f"The multiplicative inverse of {a} mod {n} does not exist.")
+
+
 if __name__ == "__main__":
-    _a, _n = 5, 18
-    inverse = inverse_element(a=_a, n=_n)
-    if inverse is not None:
-        print(f"The multiplicative inverse of {_a} mod {_n} is {inverse}")
-    else:
-        print(f"The multiplicative inverse of {_a} mod {_n} does not exist.")
+    main()

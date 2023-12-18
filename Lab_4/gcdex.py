@@ -18,7 +18,14 @@ def gcdex(a: int, b: int) -> Tuple[int, int, int]:
     return a, x0, y0
 
 
+def main() -> None:
+    a, b = 612, 342
+    d, x, y = gcdex(a=a, b=b)
+
+    return print(
+        f"НСД({a}, {b}) = {d}\n" f"x = {x}, y = {y}\n" f"{a}*{x} + {b}*{y} = {d}"
+    )
+
+
 if __name__ == "__main__":
-    _a, _b = 612, 342
-    d, x, y = gcdex(a=_a, b=_b)
-    print(f"НСД({_a}, {_b}) = {d}\n" f"x = {x}, y = {y}\n" f"{_a}*{x} + {_b}*{y} = {d}")
+    main()
