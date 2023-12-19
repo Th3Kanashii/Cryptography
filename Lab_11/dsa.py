@@ -5,7 +5,9 @@ from typing import Tuple
 
 
 class DSA:
-    """ """
+    """
+    A class implementation of the DSA.
+    """
 
     def __init__(self, q_length: int = 160) -> None:
         """
