@@ -43,7 +43,7 @@ class MD5Hasher:
         message = bytearray(message, "utf-8")
         orig_len: int = (8 * len(message)) & 0xFFFFFFFF
         message.append(0x80)
-        while len(message) % 64 != 56:
+        while len(message) % 64 != 55:
             message.append(0)
 
         message += orig_len.to_bytes(8, "little")
