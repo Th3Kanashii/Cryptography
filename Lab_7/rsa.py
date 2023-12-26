@@ -19,8 +19,9 @@ class RSA(ModInverse):
         :param bits: The number of bits for the key.
         """
         self.bits = bits
-        self.public_key, self.private_key = self.generate_keypair()
+        self.public_key, self.private_key = self._generate_keypair
 
+    @property
     def _generate_prime(self) -> int:
         """
         Generate a random prime number with the specified number of bits.
@@ -32,14 +33,15 @@ class RSA(ModInverse):
             if is_prime(num):
                 return num
 
+    @property
     def _generate_keypair(self) -> Tuple[Tuple[int, int], Tuple[int, int]]:
         """
         Generate a pair of public and private keys.
 
         :return: A tuple containing public and private keys.
         """
-        p = self.generate_prime()
-        q = self.generate_prime()
+        p = self._generate_prime
+        q = self._generate_prime
 
         n = p * q
         phi = (p - 1) * (q - 1)
@@ -50,7 +52,7 @@ class RSA(ModInverse):
             e = random.randint(1, phi - 1)
 
         # Find private key d
-        d: Union[int, None] = self.inverse_gcdex(e, phi)
+        d: Union[int, None] = self._inverse_gcdex(e, phi)
 
         return ((n, e), (n, d))
 

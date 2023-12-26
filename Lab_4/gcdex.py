@@ -19,7 +19,7 @@ def gcdex(a: int, b: int) -> Tuple[int, int, int]:
 
 
 def main() -> None:
-    a, b = 612, 342
+    a, b = 128, 127
     d, x, y = gcdex(a=a, b=b)
 
     return print(

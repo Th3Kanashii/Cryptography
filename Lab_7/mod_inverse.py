@@ -30,7 +30,7 @@ class ModInverse:
         :param n: The modulus.
         :return: The multiplicative inverse of a modulo n, or None if it does not exist.
         """
-        gcd, x, _ = self.gcdex(a=a, b=n)
+        gcd, x, _ = self._gcdex(a=a, b=n)
 
         # Check for mutual simplicity
         if gcd != 1:

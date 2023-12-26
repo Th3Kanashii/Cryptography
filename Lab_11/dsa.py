@@ -16,11 +16,12 @@ class DSA:
         :param q_length: The length (in bits) of the prime number q. Default is 160 bits.
         """
         self.q: int = q_length
-        self.p: int = self.generate_prime_p()
-        self.g: int = self.generate_generator()
+        self.p: int = self.generate_prime_p
+        self.g: int = self.generate_generator
         self.x: int = random.randint(1, self.q - 1)
         self.y: int = pow(self.g, self.x, self.p)
 
+    @property
     def generate_prime_p(self) -> int:
         """
         Generate a prime number p using the specified length q.
@@ -30,6 +31,7 @@ class DSA:
             p_candidate += 2 * self.q
         return p_candidate
 
+    @property
     def generate_generator(self) -> int:
         """
         Generate a generator g for the group Zp*.
